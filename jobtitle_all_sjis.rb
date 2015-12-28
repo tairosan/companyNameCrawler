@@ -7,7 +7,7 @@ require 'kconv'    #文字encoding
 
 # 定数の設定
 # non_key = ["株式会社", "(株)", "㈱", "有限会社", "合同会社", "合資会社"] # titleから除外する文字列の配列
-csv_path = "/var/www/html/csv/company_sjis_split.csv" # csv出力先
+csv_path = "./csv/company_sjis_split.csv" # csv出力先
 
 # Anemone オプション設定
 opts = {
@@ -33,9 +33,9 @@ opts = {
 					enc = "UTF-8"
 				else
 					enc = "sjis"
-				end 
+				end
         			CSV.open(csv_path, 'a', :encoding => enc ) do |csv|
-					csv << [s] 
+					csv << [s]
 				end
 			end
         	end
