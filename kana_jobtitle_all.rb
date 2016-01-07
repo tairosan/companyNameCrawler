@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rubygems'
 require 'anemone'  #クローラー
 require 'nokogiri' #エクストラクター
@@ -18,22 +19,20 @@ opts = {
  }
 
 # 指定回数分、Anemoneクローリング開始
-1.upto(422814) do |n|
+1.upto(19654) do |n|
 	Anemone.crawl("http://jobtalk.jp/company/#{n}_info.html", opts) do |anemone|
 		anemone.on_every_page do |page|
-        		# title = page.doc.xpath("//head/title/text()")
+    	# title = page.doc.xpath("//head/title/text()")
 			# NokogiriでExtract
-        		doc = Nokogiri::HTML(open(page.url))
-				doc.css("//h3/a").each do |company|
-        			k = company.text
-				puts k
-  				# a = company[:href]
-				puts n
-  				# CSV形式でfile書き出し
-        			CSV.open(csv_path, 'a', :encoding => "UTF-8") do |csv|
+      doc = Nokogiri::HTML(open(page.url))
+			doc.css("//h3/a").each do |company|
+      	s = company.text
+				puts s
+				# CSV形式でfile書き出し
+      	CSV.open(csv_path, 'a', :encoding => "UTF-8") do |csv|
 					csv << [s]
 				end
-			end
-        	end
-        end
+    	end
+  	end
+	end
 end

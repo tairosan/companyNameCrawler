@@ -22,22 +22,22 @@ opts = {
 1.upto(19654) do |n|
 	Anemone.crawl("http://jobtalk.jp/company/index_#{n}.html", opts) do |anemone|
 		anemone.on_every_page do |page|
-        		# NokogiriでExtract
-        		doc = Nokogiri::HTML(open(page.url))
+      # NokogiriでExtract
+      doc = Nokogiri::HTML(open(page.url))
 			doc.css("//h3/a").each do |company|
-        			s = company.text
-        			puts s
-  				# puts company[:href]
-  				# CSV形式でfile書き出し
-  				if company.text=="株式会社HI−LINE" then
+        s = company.text
+        puts s
+  			# puts company[:href]
+  			# CSV形式でfile書き出し
+  			if company.text=="株式会社HI−LINE" then
 					enc = "UTF-8"
 				else
 					enc = "sjis"
 				end
-        			CSV.open(csv_path, 'a', :encoding => enc ) do |csv|
+        	CSV.open(csv_path, 'a', :encoding => enc ) do |csv|
 					csv << [s]
 				end
 			end
-        	end
-        end
+    end
+  end
 end
